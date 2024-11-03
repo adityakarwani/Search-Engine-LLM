@@ -27,6 +27,7 @@ langchain_chroma
 arxiv
 wikipedia
 duckduckgo-search
+PyMySQL
 mysql-connector-python
 mysql
 PyMySQL
