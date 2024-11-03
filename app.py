@@ -46,7 +46,8 @@ if prompt := st.chat_input(placeholder="What is machine learning?"):
     tools = [search, arxiv, wiki]
 
     # Updated the call to create_react_agent
-    search_agent = create_react_agent(llm, tools, agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION)
+    search_agent = create_react_agent(llm, tools)
+
 
     with st.chat_message("assistant"):
         st_cb = StreamlitCallbackHandler(st.container(), expand_new_thoughts=False)
