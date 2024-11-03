@@ -28,12 +28,8 @@ arxiv
 wikipedia
 duckduckgo-search
 PyMySQL
-mysql-connector-python
-mysql
-PyMySQL
 validators==0.28.1
 youtube_transcript_api
-# git+https://github.com/pytube/pytube.git
 unstructured
 pytube
 numexpr
