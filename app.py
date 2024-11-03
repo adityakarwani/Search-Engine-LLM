@@ -3,7 +3,7 @@ from langchain_groq import ChatGroq
 from langchain_community.utilities import ArxivAPIWrapper, WikipediaAPIWrapper
 from langchain_community.tools import ArxivQueryRun, WikipediaQueryRun, DuckDuckGoSearchRun
 from langchain_community.callbacks.streamlit import StreamlitCallbackHandler
-from langchain.agents import create_react_agent, AgentType  # Updated import for AgentType
+from langchain.agents import create_react_agent, AgentType
 import os
 from dotenv import load_dotenv
 import subprocess
@@ -44,12 +44,13 @@ if prompt := st.chat_input(placeholder="What is machine learning?"):
     llm = ChatGroq(groq_api_key=api_key, model_name="Llama3-8b-8192", streaming=True)
     tools = [search, arxiv, wiki]
 
-    search_agent = create_react_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, handling_parsing_errors=True)
+    # Updated the call to create_react_agent
+    search_agent = create_react_agent(llm, tools, agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION)
 
     with st.chat_message("assistant"):
         st_cb = StreamlitCallbackHandler(st.container(), expand_new_thoughts=False)
         try:
-            response = search_agent.invoke(st.session_state.messages, callbacks=[st_cb])  # Use invoke instead of run
+            response = search_agent.invoke(st.session_state.messages, callbacks=[st_cb])
             st.session_state.messages.append({'role': 'assistant', "content": response})
             st.write(response)
         except Exception as e:
